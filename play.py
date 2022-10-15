@@ -1,3 +1,4 @@
+from turtle import delay
 import pygame
 
 BLANCO = (255, 255, 255)
@@ -28,12 +29,20 @@ class Player():                                                         #Clase d
     self.rect = pygame.Rect(0, 0, self.width, self.height)              #Agrega un rectangulo para colisiones
     self.rect.center = (x,y)                                            #Posiciona este rectangulo en las coordenadas iniciales
     self.vel_y = 0
-    self.flip = False  
+    self.flip = False                                                   #Inicia con la imagen flipped False
+    self.cool_down_count = 0  
 
+  def cool_down(self):
+    if self.cool_down_count >= 20:
+      self.cool_down_count == 0
+    elif self.cool_down_count > 0:
+      self.cool_down_count += 1
+  
   def move(self):                                                       #Dependiendo de que tecla se toca:
     scroll = 0
     dx = 0 
     dy = 0
+    self.cool_down()
 
     key = pygame.key.get_pressed()
     if key[pygame.K_a]:
@@ -42,18 +51,28 @@ class Player():                                                         #Clase d
     if key[pygame.K_d]:
       dx += 12
       self.flip = False
+    
     if key[pygame.K_SPACE]:
-      dy = 0
-      self.vel_y = -20
+      if self.cool_down_count == 0:
+        dy = 0
+        self.vel_y = -20
+        self.cool_down_count = 1
 
+      if self.cool_down_count == 20:
+        dy = 0
+        self.vel_y = -20
+        self.cool_down_count = 1
+
+    print(self.cool_down_count)
     #Seteo gravedad
     self.vel_y += GRAVITY
     dy += self.vel_y
 
     #delimitar el movimiento para evitar cruzar los margenes verticales
     if self.rect.bottom + dy > 900:
-      dy = 0      #TEST: para no caer en el vacio, se frena la velocidad de caída
-    
+      pygame.quit()
+      #dy = 0      #TEST: para no caer en el vacio, se frena la velocidad de caída
+
     #delimitar el movimiento para evitar cruzar los margenes laterales
     if self.rect.left + dx <0:
       dx = -self.rect.left
@@ -86,7 +105,7 @@ def play():
   score += 1
   scoreDisplay = font.render("Puntuación: " + str(score), True, (255,255,255))
   screen.blit(scoreDisplay,(10,10))
-  player = Player(300, 750)                                               #Inicializa al Player en X=300 Y=750
+  player = Player(300, 700)                                               #Inicializa al Player en X=300 Y=750
   while running:
 
     clock.tick(FPS)                                                       #Setea los FPS a 60
@@ -97,6 +116,7 @@ def play():
     draw_bg(bg_scroll)                                                       #Imprimir fondo
     player.draw()                                                         #Imprimir sprites
 
+    print()
     #pygame.draw.line(screen, BLANCO, (0, 200), (600, 200))                #Linea que indica cuando debe empezar a mover la camara (Scroll) TEST
 
     # capturador de eventos
