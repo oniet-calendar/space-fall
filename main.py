@@ -88,6 +88,9 @@ while running:
   player.move()                                                         #Agrega funcionalidad de movimiento en la clase Player
   screen.blit(bg_image, (0,0))                                          #Imprimir fondo
   player.draw()                                                         #Imprimir sprites
+  score += 1
+  scoreDisplay = font.render("Puntuación: " + str(score), True, (255,255,255))
+  screen.blit(scoreDisplay,(10,10))
 
   # capturador de eventos
   for event in pygame.event.get():
