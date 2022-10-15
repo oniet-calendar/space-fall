@@ -22,7 +22,7 @@ def getFont(fontSize):
   return pygame.font.Font('freesansbold.ttf', fontSize)
 
 # titulo de la ventana
-pygame.display.set_caption("Space Jump")
+pygame.display.set_caption("Space Fall")
 
 #cargar imagenes
 bg_image = pygame.image.load("./img/background.png").convert_alpha()
