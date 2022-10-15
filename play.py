@@ -15,7 +15,6 @@ player_sprite = pygame.image.load("img/Astronaut_Falling.png").convert_alpha()
 #Variables
 GRAVITY = 1                                                             #Esta variable se encarga de modificar el valor de la gravedad
 
-
 #scrolling bg
 def draw_bg(bg_scroll):
   screen.blit(bg_image, (0,0 + bg_scroll))                              #Usa dos fondos p/ dar continuidad, cuando llega al tope de ambos, reinicia el bg_scroll y vuelve a empezar desde 0
@@ -76,10 +75,17 @@ class Player():                                                         #Clase d
     pygame.draw.rect(screen, BLANCO, self.rect, 2)
 
 def play():
+  # Font
+  font = pygame.font.Font('freesansbold.ttf',28)
+  score = 0
   scroll = 0
   bg_scroll = 0
+
   # comienzo del juego
   running = True
+  score += 1
+  scoreDisplay = font.render("Puntuación: " + str(score), True, (255,255,255))
+  screen.blit(scoreDisplay,(10,10))
   player = Player(300, 750)                                               #Inicializa al Player en X=300 Y=750
   while running:
 
