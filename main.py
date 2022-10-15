@@ -13,6 +13,8 @@ FPS = 60
 
 #Variables
 GRAVITY = 1                                                             #Esta variable se encarga de modificar el valor de la gravedad
+scroll = 0
+bg_scroll = 0
 
 # titulo de la ventana
 pygame.display.set_caption("Space Jump")
@@ -21,11 +23,15 @@ pygame.display.set_caption("Space Jump")
 bg_image = pygame.image.load("background.png").convert_alpha()
 player_sprite = pygame.image.load("Astronaut_Falling.png").convert_alpha()
 
+#scrolling bg
+def draw_bg(bg_scroll):
+  screen.blit(bg_image, (0,0 + bg_scroll))                              #Usa dos fondos p/ dar continuidad, cuando llega al tope de ambos, reinicia el bg_scroll y vuelve a empezar desde 0
+  screen.blit(bg_image, (0, -900 + bg_scroll))
+
 #colores
 BLANCO = (255, 255, 255)
 
 class Player():                                                         #Clase del jugador 
-
   def __init__(self, x, y):
     self.image = pygame.transform.scale(player_sprite, (80,80))         #Inicializa y reescala el sprite
     self.height = 75
@@ -36,6 +42,7 @@ class Player():                                                         #Clase d
     self.flip = False  
 
   def move(self):                                                       #Dependiendo de que tecla se toca:
+    scroll = 0
     dx = 0 
     dy = 0
 
@@ -49,7 +56,6 @@ class Player():                                                         #Clase d
     if key[pygame.K_SPACE]:
       dy = 0
       self.vel_y = -20
-
 
     #Seteo gravedad
     self.vel_y += GRAVITY
@@ -65,9 +71,15 @@ class Player():                                                         #Clase d
     if self.rect.right + dx > 600:
       dx = 600 - self.rect.right
 
+    if self.rect.top <= 200:
+      if self.vel_y < 0:
+        scroll = -dy
+
     #actualizo el valor de movimiento por variables almacenando movimiento en pixeles
     self.rect.x += dx
-    self.rect.y += dy
+    self.rect.y += dy + scroll
+
+    return scroll
 
   def draw(self):                                                       #Funcion dedicada a imprimir el sprite // Dependiendo su direccion, se flipea el sprite
     screen.blit(pygame.transform.flip(self.image, self.flip, False), (self.rect.x - 20, self.rect.y - 5))
@@ -77,13 +89,17 @@ class Player():                                                         #Clase d
 # comienzo del juego
 running = True
 player = Player(300, 750)                                               #Inicializa al Player en X=300 Y=750
-jumping = False
 while running:
 
   clock.tick(FPS)                                                       #Setea los FPS a 60
-  player.move()                                                         #Agrega funcionalidad de movimiento en la clase Player
-  screen.blit(bg_image, (0,0))                                          #Imprimir fondo
+  scroll = player.move()                                                #Agrega funcionalidad de movimiento en la clase Player
+  bg_scroll += scroll                                                   #Esta variable va sumando de manera continua el progreso del scroll
+  if bg_scroll >= 900:
+    bg_scroll =0
+  draw_bg(bg_scroll)                                                       #Imprimir fondo
   player.draw()                                                         #Imprimir sprites
+
+  #pygame.draw.line(screen, BLANCO, (0, 200), (600, 200))                #Linea que indica cuando debe empezar a mover la camara (Scroll) TEST
 
   # capturador de eventos
   for event in pygame.event.get():
