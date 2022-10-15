@@ -25,18 +25,23 @@ def draw_bg(bg_scroll):
 
 class Asteroid(object):
     def __init__(self, rank):
-        self.rank = rank
+        self.rank = 1
         if self.rank == 1:
-            self.image = jetpack_image
-        self.w = 50 * rank
+            self.image = pygame.transform.scale(jetpack_image, (150,150))   #Conseguir un mejor sprite para los asteroides
+        self.w = 50 * rank                                                  #Dependiendo del rango, se puede multiplicar el tamaño para hacer asteroides mas grandes
         self.h = 50 * rank
-        self.ranPoint = (random.randrange(0,600), 0) #random.choice([(random.randrange(0, 600-self.w), random.choice([-1*self.h - 5, 900 + 5]))])
+        self.ranPoint = (random.randrange(5 ,595), 0)                       #Donde spawnean los asteroides, entre un valor random del ancho de la pantalla y posicion 0 arriba
         self.x, self.y = self.ranPoint
-        self.xv = 0
-        self.yv = 1 * random.randrange(1,3)
+        self.xv = 0                                 
+        self.yv = 1 * random.randrange(5,7)                                 #Velocidad vertical random entre 5 y 7
+        self.rect = pygame.Rect(0, 0, self.w, self.h)              #Agrega un rectangulo para colisiones
+
 
     def draw(self, screen):
         screen.blit(jetpack_image, (self.x, self.y))
+        pygame.draw.rect(screen, BLANCO, self.rect, 2)
+        self.rect.x = self.xv + self.x
+        self.rect.y += self.yv
 
 class Player():                                                         #Clase del jugador 
   def __init__(self, x, y):
@@ -136,11 +141,13 @@ def play():
     asteroidCount += 1
     scroll = player.move()                                                #Agrega funcionalidad de movimiento en la clase Player
     bg_scroll += scroll                                                   #Esta variable va sumando de manera continua el progreso del scroll
+    
     if bg_scroll >= 900:                                                  #Si se pasa la resolucion del primer fondo, reiniciar a 0 para volver a verlo al principio
       bg_scroll =0
     draw_bg(bg_scroll)                                                    #Imprimir fondo
+    
     player.draw()                                                         #Imprimir sprites
-
+    
     for a in asteroids:
       a.draw(screen)
       a.x += a.xv

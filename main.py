@@ -27,7 +27,7 @@ def main_menu():
 
         MENU_TEXT = getFont(100).render("Space Fall", True, "#ffffff")
         MENU_RECT = MENU_TEXT.get_rect(center=(300, 100))
-
+ 
         PLAY_BUTTON = Button(image=pygame.image.load("img/play.png"), pos=(300, 350), 
                             text_input="Jugar", font=getFont(50), base_color="#d7fcd4", hovering_color="White")
         TUTORIAL_BUTTON = Button(image=pygame.image.load("img/quit.png"), pos=(300, 480), 
