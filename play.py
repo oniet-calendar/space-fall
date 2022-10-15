@@ -52,16 +52,20 @@ class Player():                                                         #Clase d
       dx += 12
       self.flip = False
     
-    if key[pygame.K_SPACE]:
-      if self.cool_down_count == 0:
-        dy = 0
-        self.vel_y = -20
-        self.cool_down_count = 1
+    
+    for event in pygame.event.get():
+      if event.type == pygame.KEYDOWN:
+         if event.key == pygame.K_SPACE:
+           if self.cool_down_count == 0:
+             dy = 0
+             self.vel_y = -20
+             self.cool_down_count = 1
 
-      if self.cool_down_count == 20:
-        dy = 0
-        self.vel_y = -20
-        self.cool_down_count = 1
+           if self.cool_down_count == 20:
+             dy = 0
+             self.vel_y = -20
+             self.cool_down_count = 1
+    
 
     print(self.cool_down_count)
     #Seteo gravedad
@@ -105,7 +109,7 @@ def play():
   score += 1
   scoreDisplay = font.render("Puntuación: " + str(score), True, (255,255,255))
   screen.blit(scoreDisplay,(10,10))
-  player = Player(300, 700)                                               #Inicializa al Player en X=300 Y=750
+  player = Player(300, 400)                                               #Inicializa al Player en X=300 Y=750
   while running:
 
     clock.tick(FPS)                                                       #Setea los FPS a 60
@@ -116,8 +120,7 @@ def play():
     draw_bg(bg_scroll)                                                       #Imprimir fondo
     player.draw()                                                         #Imprimir sprites
 
-    print()
-    #pygame.draw.line(screen, BLANCO, (0, 200), (600, 200))                #Linea que indica cuando debe empezar a mover la camara (Scroll) TEST
+    pygame.draw.line(screen, BLANCO, (0, 200), (600, 200))                #Linea que indica cuando debe empezar a mover la camara (Scroll) TEST
 
     # capturador de eventos
     for event in pygame.event.get():
