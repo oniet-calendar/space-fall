@@ -27,19 +27,19 @@ class Asteroid(object):
     def __init__(self, rank):
         self.rank = 1
         if self.rank == 1:
-            self.image = pygame.transform.scale(jetpack_image, (150,150))   #Conseguir un mejor sprite para los asteroides
-        self.w = 50 * rank                                                  #Dependiendo del rango, se puede multiplicar el tamaño para hacer asteroides mas grandes
-        self.h = 50 * rank
-        self.ranPoint = (random.randrange(5 ,595), 0)                       #Donde spawnean los asteroides, entre un valor random del ancho de la pantalla y posicion 0 arriba
+          self.image = jetpack_image                              #Inicializa y reescala el sprite
+        self.w = 47                                               #Dependiendo del rango, se puede multiplicar el tamaño para hacer asteroides mas grandes
+        self.h = 47
+        self.ranPoint = (random.randrange(5 ,580), -15)                   #Donde spawnean los asteroides, entre un valor random del ancho de la pantalla y posicion 0 arriba
         self.x, self.y = self.ranPoint
         self.xv = 0                                 
-        self.yv = 1 * random.randrange(5,7)                                 #Velocidad vertical random entre 5 y 7
-        self.rect = pygame.Rect(0, 0, self.w, self.h)              #Agrega un rectangulo para colisiones
-
+        self.yv = 1 * 5                                                 #Velocidad vertical  
+        self.rect = pygame.Rect(0, 0, self.w, self.h)                   #Agrega un rectangulo para colisiones
+        self.rect.center = (65,15)
 
     def draw(self, screen):
         screen.blit(jetpack_image, (self.x, self.y))
-        pygame.draw.rect(screen, BLANCO, self.rect, 2)
+        #pygame.draw.rect(screen, BLANCO, self.rect, 2)
         self.rect.x = self.xv + self.x
         self.rect.y += self.yv
 
@@ -76,8 +76,8 @@ class Player():                                                         #Clase d
       self.flip = False
     
     for event in pygame.event.get():
-      if event.type == pygame.KEYDOWN:
-         if event.key == pygame.K_SPACE:
+      if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.button == 1:
            if self.cool_down_count == 0:
              self.vel_y = -20
              self.cool_down_count = 1
@@ -114,7 +114,7 @@ class Player():                                                         #Clase d
 
   def draw(self):                                                       #Funcion dedicada a imprimir el sprite // Dependiendo su direccion, se flipea el sprite
     screen.blit(pygame.transform.flip(self.image, self.flip, False), (self.rect.x - 20, self.rect.y - 5))
-    pygame.draw.rect(screen, BLANCO, self.rect, 2)
+    #pygame.draw.rect(screen, BLANCO, self.rect, 2)
 
 def play():
   # Font
@@ -153,7 +153,7 @@ def play():
       a.x += a.xv
       a.y += a.yv      
 
-    pygame.draw.line(screen, BLANCO, (0, 200), (600, 200))                #Linea que indica cuando debe empezar a mover la camara (Scroll) TEST
+    #pygame.draw.line(screen, BLANCO, (0, 200), (600, 200))                #Linea que indica cuando debe empezar a mover la camara (Scroll) TEST
 
     if asteroidCount % 50 == 0:
       ran = random.choice([1,1,1,2,2,3])

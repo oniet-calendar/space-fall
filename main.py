@@ -24,7 +24,7 @@ def main_menu():
     while True:  
         screen.blit(bg_image, (0,  0))
         MENU_MOUSE_POS = pygame.mouse.get_pos()
-
+ 
         MENU_TEXT = getFont(100).render("Space Fall", True, "#ffffff")
         MENU_RECT = MENU_TEXT.get_rect(center=(300, 100))
  
@@ -34,16 +34,14 @@ def main_menu():
                             text_input="Tutorial", font=getFont(40), base_color="#d7fcd4", hovering_color="White")
         QUIT_BUTTON = Button(image=pygame.image.load("img/quit.png"), pos=(300, 610), 
                             text_input="Salir del juego", font=getFont(30), base_color="#d7fcd4", hovering_color="White")
-
         screen.blit(MENU_TEXT, MENU_RECT)
-
         for button in [PLAY_BUTTON, TUTORIAL_BUTTON, QUIT_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(screen)
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame .quit()
+                pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
