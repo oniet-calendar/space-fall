@@ -14,16 +14,15 @@ font = pygame.font.Font('freesansbold.ttf',28)
 def getFont(fontSize):
   return pygame.font.Font('freesansbold.ttf', fontSize)
 
-#cargar imagenes
+#cargar imagenes 
 bg_image = pygame.image.load("img/background.png").convert_alpha()
 
 # Menu principal
-def main_menu():
-    # titulo de la ventana
+def main_menu(): 
+    # titulo de la ventana 
     pygame.display.set_caption("Space Fall")
-    while True:
-        screen.blit(bg_image, (0, 0))
-
+    while True:  
+        screen.blit(bg_image, (0,  0))
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
         MENU_TEXT = getFont(100).render("Space Fall", True, "#ffffff")
@@ -44,13 +43,13 @@ def main_menu():
         
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
+                pygame .quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
                     play()
                 if TUTORIAL_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    pass
+                    pass 
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
                     sys.exit()
@@ -58,3 +57,4 @@ def main_menu():
         pygame.display.update()
 
 main_menu()
+ 
