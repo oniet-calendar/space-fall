@@ -22,8 +22,8 @@ font = pygame.font.Font('freesansbold.ttf',32)
 pygame.display.set_caption("Space Jump")
 
 #cargar imagenes
-bg_image = pygame.image.load("background.png").convert_alpha()
-player_sprite = pygame.image.load("Astronaut_Falling.png").convert_alpha()
+bg_image = pygame.image.load("./img/background.png").convert_alpha()
+player_sprite = pygame.image.load("./img/Astronaut_Falling.png").convert_alpha()
 
 #colores
 BLANCO = (255, 255, 255)
