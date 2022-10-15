@@ -37,8 +37,6 @@ class Player():                                                         #Clase d
   def move(self):                                                       #Dependiendo de que tecla se toca:
     dx = 0 
     dy = 0 
-    a = pygame.event.get()  # Contains the events that has happen.
-
 
     key = pygame.key.get_pressed()
     if key[pygame.K_a]:
@@ -48,20 +46,14 @@ class Player():                                                         #Clase d
       dx += 12
       self.flip = False
 
-    for event in a:
-      if event.type == pygame.MOUSEBUTTONDOWN:
-        if event.button == 1:                                             #Boton Izquierdo Clickeado
-          dy += 12
-
     #Seteo gravedad
     self.vel_y += GRAVITY
     dy += self.vel_y
 
     #delimitar el movimiento para evitar cruzar los margenes verticales
     if self.rect.bottom + dy > 900:
-      pygame.quit()
+      dy = 0      #TEST: para no caer en el vacio, se frena la velocidad de caída
     
-
     #delimitar el movimiento para evitar cruzar los margenes laterales
     if self.rect.left + dx <0:
       dx = -self.rect.left
@@ -73,24 +65,27 @@ class Player():                                                         #Clase d
     self.rect.y += dy
 
   def draw(self):                                                       #Funcion dedicada a imprimir el sprite // Dependiendo su direccion, se flipea el sprite
-    screen.blit( pygame.transform.flip(self.image, self.flip, False), (self.rect.x - 20, self.rect.y - 5))
+    screen.blit(pygame.transform.flip(self.image, self.flip, False), (self.rect.x - 20, self.rect.y - 5))
     pygame.draw.rect(screen, BLANCO, self.rect, 2)                      #DEBUG // Imprime el box collision
 
 player = Player(300, 750)                                               #Inicializa al Player en X=300 Y=750
+leftClick = False
 
 # comienzo del juego
 running = True
 while running:
 
-
   clock.tick(FPS) 
-
   player.move()                                                         #Agrega funcionalidad de movimiento en la clase Player
   screen.blit(bg_image, (0,0))                                          #Imprimir fondo
   player.draw()                                                         #Imprimir sprites
 
   # capturador de eventos
   for event in pygame.event.get():
+
+    if event.type == pygame.MOUSEBUTTONDOWN:
+      player.move.dy += 20
+
     # detección de salida de ventana
     if event.type == pygame.QUIT:
       run = False
