@@ -13,7 +13,7 @@ FPS = 60
 #cargar imagenes
 bg_image = pygame.image.load("img/background.png").convert_alpha()
 player_sprite = pygame.image.load("img/Astronaut_Falling.png").convert_alpha()
-jetpack_image = pygame.image.load("img/jetpack_pickup.png").convert_alpha()
+asteroid_image = pygame.image.load("img/asteroid.png").convert_alpha()
 
 #Variables
 GRAVITY = 1                                                             #Esta variable se encarga de modificar el valor de la gravedad
@@ -27,7 +27,7 @@ class Asteroid(object):
     def __init__(self, rank):
         self.rank = 1
         if self.rank == 1:
-          self.image = jetpack_image                              #Inicializa y reescala el sprite
+          self.image = asteroid_image                              #Inicializa y reescala el sprite
         self.w = 47                                               #Dependiendo del rango, se puede multiplicar el tamaño para hacer asteroides mas grandes
         self.h = 47
         self.ranPoint = (random.randrange(5 ,580), -15)                   #Donde spawnean los asteroides, entre un valor random del ancho de la pantalla y posicion 0 arriba
@@ -38,8 +38,8 @@ class Asteroid(object):
         self.rect.center = (65,15)
 
     def draw(self, screen):
-        screen.blit(jetpack_image, (self.x, self.y))
-        #pygame.draw.rect(screen, BLANCO, self.rect, 2)
+        screen.blit(asteroid_image, (self.x, self.y))
+        pygame.draw.rect(screen, BLANCO, self.rect, 2)
         self.rect.x = self.xv + self.x
         self.rect.y += self.yv
 
@@ -114,7 +114,7 @@ class Player():                                                         #Clase d
 
   def draw(self):                                                       #Funcion dedicada a imprimir el sprite // Dependiendo su direccion, se flipea el sprite
     screen.blit(pygame.transform.flip(self.image, self.flip, False), (self.rect.x - 20, self.rect.y - 5))
-    #pygame.draw.rect(screen, BLANCO, self.rect, 2)
+    pygame.draw.rect(screen, BLANCO, self.rect, 2)
 
 def play():
   # Font
@@ -151,9 +151,13 @@ def play():
     for a in asteroids:
       a.draw(screen)
       a.x += a.xv
-      a.y += a.yv      
+      a.y += a.yv
 
-    #pygame.draw.line(screen, BLANCO, (0, 200), (600, 200))                #Linea que indica cuando debe empezar a mover la camara (Scroll) TEST
+      if (player.rect.left >= a.x and player.rect.left <= a.x + a.w) or (player.rect.right + player.width >= a.x and player.rect.right + player.width <= a.x + a.w):
+        if (player.rect.top >= a.y and player.rect.top <= a.y + a.h) or (player.rect.bottom + player.height >= a.y and player.rect.bottom + player.height <= a.y + a.h):
+          pygame.quit()      
+    
+    pygame.draw.line(screen, BLANCO, (0, 200), (600, 200))                #Linea que indica cuando debe empezar a mover la camara (Scroll) TEST
 
     if asteroidCount % 50 == 0:
       ran = random.choice([1,1,1,2,2,3])

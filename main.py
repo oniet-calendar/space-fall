@@ -4,7 +4,6 @@ from play import play
 
 # inicializo pygame
 pygame.init()
-
 # tamaño de ventana
 size = 600, 900
 screen = pygame.display.set_mode(size)
@@ -16,6 +15,7 @@ def getFont(fontSize):
 
 #cargar imagenes 
 bg_image = pygame.image.load("img/background.png").convert_alpha()
+pygame.display.set_icon(pygame.image.load("img/logo.png").convert_alpha())
 
 # Menu principal
 def main_menu(): 
