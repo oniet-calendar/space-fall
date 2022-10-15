@@ -13,6 +13,10 @@ FPS = 60
 
 #Variables
 GRAVITY = 1                                                             #Esta variable se encarga de modificar el valor de la gravedad
+score = 0
+
+# Font
+font = pygame.font.Font('freesansbold.ttf',32)
 
 # titulo de la ventana
 pygame.display.set_caption("Space Jump")
