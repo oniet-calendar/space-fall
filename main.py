@@ -1,4 +1,5 @@
 import sys, pygame
+from button import Button
 
 # inicializo pygame
 pygame.init()
@@ -16,8 +17,13 @@ GRAVITY = 1                                                             #Esta va
 scroll = 0
 bg_scroll = 0
 
+# Font
+font = pygame.font.Font('freesansbold.ttf',28)
+def getFont(fontSize):
+  return pygame.font.Font('freesansbold.ttf', fontSize)
+  
 # titulo de la ventana
-pygame.display.set_caption("Space Jump")
+pygame.display.set_caption("Space Fall")
 
 #cargar imagenes
 bg_image = pygame.image.load("img/background.png").convert_alpha()
