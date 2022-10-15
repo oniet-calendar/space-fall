@@ -117,14 +117,14 @@ def main_menu():
 
         PLAY_BUTTON = Button(image=pygame.image.load("img/play.png"), pos=(300, 350), 
                             text_input="Jugar", font=getFont(50), base_color="#d7fcd4", hovering_color="White")
-        OPTIONS_BUTTON = Button(image=pygame.image.load("img/quit.png"), pos=(300, 480), 
-                            text_input="Opciones", font=getFont(40), base_color="#d7fcd4", hovering_color="White")
+        TUTORIAL_BUTTON = Button(image=pygame.image.load("img/quit.png"), pos=(300, 480), 
+                            text_input="Tutorial", font=getFont(40), base_color="#d7fcd4", hovering_color="White")
         QUIT_BUTTON = Button(image=pygame.image.load("img/quit.png"), pos=(300, 610), 
                             text_input="Salir del juego", font=getFont(30), base_color="#d7fcd4", hovering_color="White")
 
         screen.blit(MENU_TEXT, MENU_RECT)
 
-        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
+        for button in [PLAY_BUTTON, TUTORIAL_BUTTON, QUIT_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(screen)
         
@@ -135,7 +135,7 @@ def main_menu():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
                     play()
-                if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
+                if TUTORIAL_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pass
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
