@@ -87,15 +87,15 @@ def main_menu():
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        MENU_TEXT = getFont(100).render("Space Fall", True, "#b68f40")
-        MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
+        MENU_TEXT = getFont(100).render("Space Fall", True, "#ffffff")
+        MENU_RECT = MENU_TEXT.get_rect(center=(300, 100))
 
-        PLAY_BUTTON = Button(image=pygame.image.load("img/play.png"), pos=(0, 250), 
-                            text_input="PLAY", font=getFont(75), base_color="#d7fcd4", hovering_color="White")
-        OPTIONS_BUTTON = Button(image=pygame.image.load("img/options.png"), pos=(0, 400), 
-                            text_input="OPTIONS", font=getFont(75), base_color="#d7fcd4", hovering_color="White")
-        QUIT_BUTTON = Button(image=pygame.image.load("img/quit.png"), pos=(0, 550), 
-                            text_input="Salir del juego", font=getFont(75), base_color="#d7fcd4", hovering_color="White")
+        PLAY_BUTTON = Button(image=pygame.image.load("img/play.png"), pos=(300, 350), 
+                            text_input="Jugar", font=getFont(50), base_color="#d7fcd4", hovering_color="White")
+        OPTIONS_BUTTON = Button(image=pygame.image.load("img/quit.png"), pos=(300, 480), 
+                            text_input="Opciones", font=getFont(40), base_color="#d7fcd4", hovering_color="White")
+        QUIT_BUTTON = Button(image=pygame.image.load("img/quit.png"), pos=(300, 610), 
+                            text_input="Salir del juego", font=getFont(30), base_color="#d7fcd4", hovering_color="White")
 
         screen.blit(MENU_TEXT, MENU_RECT)
 
