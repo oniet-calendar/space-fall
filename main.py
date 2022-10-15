@@ -14,7 +14,6 @@ FPS = 60
 
 #Variables
 GRAVITY = 1                                                             #Esta variable se encarga de modificar el valor de la gravedad
-score = 0
 
 # Font
 font = pygame.font.Font('freesansbold.ttf',28)
@@ -80,6 +79,32 @@ class Player():                                                         #Clase d
     screen.blit(pygame.transform.flip(self.image, self.flip, False), (self.rect.x - 20, self.rect.y - 5))
     pygame.draw.rect(screen, BLANCO, self.rect, 2)                      #DEBUG // Imprime el box collision
 
+def play():
+  # comienzo del juego
+  score = 0
+  running = True
+  player = Player(300, 750)                                               #Inicializa al Player en X=300 Y=750
+  jumping = False
+  while running:
+
+    clock.tick(FPS)                                                       #Setea los FPS a 60
+    player.move()                                                         #Agrega funcionalidad de movimiento en la clase Player
+    screen.blit(bg_image, (0,0))                                          #Imprimir fondo
+    player.draw()                                                         #Imprimir sprites
+    score += 1
+    scoreDisplay = font.render("Puntuación: " + str(score), True, (255,255,255))
+    screen.blit(scoreDisplay,(10,10))
+
+    # capturador de eventos
+    for event in pygame.event.get():
+      # detección de salida de ventana
+      if event.type == pygame.QUIT:
+        run = False
+        # salir de pygame
+        pygame.quit()
+
+    pygame.display.update()
+
 # Menu principal
 def main_menu():
     while True:
@@ -109,7 +134,7 @@ def main_menu():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    pass
+                    play()
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pass
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
@@ -119,28 +144,3 @@ def main_menu():
         pygame.display.update()
 
 main_menu()
-
-# comienzo del juego
-running = True
-player = Player(300, 750)                                               #Inicializa al Player en X=300 Y=750
-jumping = False
-while running:
-
-  clock.tick(FPS)                                                       #Setea los FPS a 60
-  player.move()                                                         #Agrega funcionalidad de movimiento en la clase Player
-  screen.blit(bg_image, (0,0))                                          #Imprimir fondo
-  player.draw()                                                         #Imprimir sprites
-  score += 1
-  scoreDisplay = font.render("Puntuación: " + str(score), True, (255,255,255))
-  screen.blit(scoreDisplay,(10,10))
-
-  # capturador de eventos
-  for event in pygame.event.get():
-    # detección de salida de ventana
-    if event.type == pygame.QUIT:
-      run = False
-      # salir de pygame
-      pygame.quit()
-
-  pygame.display.update()
-
