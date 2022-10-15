@@ -1,4 +1,5 @@
 import sys, pygame
+from button import Button
 
 # inicializo pygame
 pygame.init()
@@ -16,7 +17,9 @@ GRAVITY = 1                                                             #Esta va
 score = 0
 
 # Font
-font = pygame.font.Font('freesansbold.ttf',32)
+font = pygame.font.Font('freesansbold.ttf',28)
+def getFont(fontSize):
+  return pygame.font.Font('freesansbold.ttf', fontSize)
 
 # titulo de la ventana
 pygame.display.set_caption("Space Jump")
@@ -77,6 +80,45 @@ class Player():                                                         #Clase d
     screen.blit(pygame.transform.flip(self.image, self.flip, False), (self.rect.x - 20, self.rect.y - 5))
     pygame.draw.rect(screen, BLANCO, self.rect, 2)                      #DEBUG // Imprime el box collision
 
+# Menu principal
+def main_menu():
+    while True:
+        screen.blit(bg_image, (0, 0))
+
+        MENU_MOUSE_POS = pygame.mouse.get_pos()
+
+        MENU_TEXT = getFont(100).render("Space Fall", True, "#b68f40")
+        MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
+
+        PLAY_BUTTON = Button(image=pygame.image.load("img/play.png"), pos=(0, 250), 
+                            text_input="PLAY", font=getFont(75), base_color="#d7fcd4", hovering_color="White")
+        OPTIONS_BUTTON = Button(image=pygame.image.load("img/options.png"), pos=(0, 400), 
+                            text_input="OPTIONS", font=getFont(75), base_color="#d7fcd4", hovering_color="White")
+        QUIT_BUTTON = Button(image=pygame.image.load("img/quit.png"), pos=(0, 550), 
+                            text_input="Salir del juego", font=getFont(75), base_color="#d7fcd4", hovering_color="White")
+
+        screen.blit(MENU_TEXT, MENU_RECT)
+
+        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
+            button.changeColor(MENU_MOUSE_POS)
+            button.update(screen)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    pass
+                if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    pass
+                if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    pygame.quit()
+                    sys.exit()
+
+        pygame.display.update()
+
+main_menu()
 
 # comienzo del juego
 running = True
