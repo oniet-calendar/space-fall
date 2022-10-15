@@ -24,7 +24,8 @@ player_sprite = pygame.image.load("Astronaut_Falling.png").convert_alpha()
 #colores
 BLANCO = (255, 255, 255)
 
-class Player():                                                         #Clase del jugador
+class Player():                                                         #Clase del jugador 
+
   def __init__(self, x, y):
     self.image = pygame.transform.scale(player_sprite, (80,80))         #Inicializa y reescala el sprite
     self.height = 75
@@ -36,7 +37,7 @@ class Player():                                                         #Clase d
 
   def move(self):                                                       #Dependiendo de que tecla se toca:
     dx = 0 
-    dy = 0 
+    dy = 0
 
     key = pygame.key.get_pressed()
     if key[pygame.K_a]:
@@ -45,6 +46,10 @@ class Player():                                                         #Clase d
     if key[pygame.K_d]:
       dx += 12
       self.flip = False
+    if key[pygame.K_SPACE]:
+      dy = 0
+      self.vel_y = -20
+
 
     #Seteo gravedad
     self.vel_y += GRAVITY
@@ -68,24 +73,20 @@ class Player():                                                         #Clase d
     screen.blit(pygame.transform.flip(self.image, self.flip, False), (self.rect.x - 20, self.rect.y - 5))
     pygame.draw.rect(screen, BLANCO, self.rect, 2)                      #DEBUG // Imprime el box collision
 
-player = Player(300, 750)                                               #Inicializa al Player en X=300 Y=750
-leftClick = False
 
 # comienzo del juego
 running = True
+player = Player(300, 750)                                               #Inicializa al Player en X=300 Y=750
+jumping = False
 while running:
 
-  clock.tick(FPS) 
+  clock.tick(FPS)                                                       #Setea los FPS a 60
   player.move()                                                         #Agrega funcionalidad de movimiento en la clase Player
   screen.blit(bg_image, (0,0))                                          #Imprimir fondo
   player.draw()                                                         #Imprimir sprites
 
   # capturador de eventos
   for event in pygame.event.get():
-
-    if event.type == pygame.MOUSEBUTTONDOWN:
-      player.move.dy += 20
-
     # detección de salida de ventana
     if event.type == pygame.QUIT:
       run = False
