@@ -1,5 +1,6 @@
 import sys, pygame
 from button import Button
+from music import background_music
 from play import play
 
 # inicializo pygame
@@ -23,6 +24,8 @@ player_sprite = pygame.image.load("img/Astronaut_Falling.png").convert_alpha()
 
 # Menu principal
 def main_menu():
+
+    background_music()
     # titulo de la ventana
     pygame.display.set_caption("Space Fall")
     while True:
