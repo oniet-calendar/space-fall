@@ -1,12 +1,12 @@
 <div align="center">
 
-# Space Fall
+# Space Fall 👨‍🚀
 
 <img src="./img/logo.png" height="50" width="50" />
 
-</div>
-
 Un juego casual hecho con pygame para la competencia "Videojuegos contra Calendar" de las [ONIET](https://oniet.ubp.edu.ar/)
+
+</div>
 
 ## Creado por
 * [Benitez Uriel](https://github.com/UrielBenitez)
