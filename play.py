@@ -1,5 +1,3 @@
-from copyreg import pickle
-from turtle import delay
 import pygame,sys, random
 
 BLANCO = (255, 255, 255)
@@ -127,10 +125,7 @@ def play():
 
   # comienzo del juego
   running = True
-  score += 1
-  
-  scoreDisplay = font.render("Puntuación: " + str(score), True, (255,255,255))
-  screen.blit(scoreDisplay,(10,10))
+
   player = Player(300, 400)                                               #Inicializa al Player en X=300 Y=400
   
   
@@ -141,7 +136,7 @@ def play():
     asteroidCount += 1
     scroll = player.move()                                                #Agrega funcionalidad de movimiento en la clase Player
     bg_scroll += scroll                                                   #Esta variable va sumando de manera continua el progreso del scroll
-    
+
     if bg_scroll >= 900:                                                  #Si se pasa la resolucion del primer fondo, reiniciar a 0 para volver a verlo al principio
       bg_scroll =0
     draw_bg(bg_scroll)                                                    #Imprimir fondo
@@ -170,5 +165,9 @@ def play():
         running = False
         pygame.quit()
         sys.exit()
+
+    score += 1
+    scoreDisplay = font.render("Puntuación: " + str(score), True, (255,255,255))
+    screen.blit(scoreDisplay,(10,10))
 
     pygame.display.update()
