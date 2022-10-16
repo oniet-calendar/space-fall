@@ -1,6 +1,6 @@
 import sys, pygame
 from button import Button
-from music import background_music
+from menu_music import background_music
 from play import play
 
 # inicializo pygame

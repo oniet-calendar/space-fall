@@ -1,5 +1,7 @@
 import pygame, sys, random
 
+from play_music import play_music
+
 BLANCO = (255, 255, 255)
 size = 600, 900
 screen = pygame.display.set_mode(size)
@@ -137,6 +139,9 @@ class Player:  # Clase del jugador
 
 
 def play():
+
+    play_music()
+
     # Font
     font = pygame.font.Font("freesansbold.ttf", 28)
     score = 0
