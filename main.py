@@ -2,6 +2,7 @@ import sys, pygame
 from button import Button
 from menu_music import background_music
 from play import play
+from tutorial import tutorial
 
 # inicializo pygame
 pygame.init()
@@ -79,7 +80,7 @@ def main_menu():
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
                     play()
                 if TUTORIAL_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    pass
+                    tutorial()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
                     sys.exit()
