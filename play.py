@@ -14,6 +14,8 @@ FPS = 60
 bg_image = pygame.image.load("img/background.png").convert_alpha()
 player_sprite = pygame.image.load("img/Astronaut_Falling.png").convert_alpha()
 asteroid_image = pygame.image.load("img/asteroid.png").convert_alpha()
+asteroid_image2 = pygame.image.load("img/asteroid2.png").convert_alpha()
+asteroid_image3 = pygame.image.load("img/asteroid3.png").convert_alpha()
 
 # Variables
 GRAVITY = 1  # Esta variable se encarga de modificar el valor de la gravedad
@@ -27,29 +29,33 @@ def draw_bg(bg_scroll):
 
 
 class Asteroid(object):
-    def __init__(self, rank):
-        self.rank = 1
-        if self.rank == 1:
+    def __init__(self, type):
+        self.type = type
+        if self.type == 1:
             self.image = asteroid_image  # Inicializa y reescala el sprite
-        self.w = 47  # Dependiendo del rango, se puede multiplicar el tamaño para hacer asteroides mas grandes
-        self.h = 47
+        if self.type == 2:
+            self.image = asteroid_image2
+        if self.type == 3: 
+            self.image = asteroid_image3
+        self.w = 64  # Dependiendo del rango, se puede multiplicar el tamaño para hacer asteroides mas grandes
+        self.h = 64
         self.ranPoint = (
             random.randrange(5, 580),
             -15,
         )  # Donde spawnean los asteroides, entre un valor random del ancho de la pantalla y posicion 0 arriba
         self.x, self.y = self.ranPoint
-        self.xv = 0
-        self.yv = 1 * 5  # Velocidad vertical
+        self.xv = 0                 #Velocidad horizontal en 0 asi salen de arriba
+        self.yv = 1 * 3             # Velocidad vertical
         self.rect = pygame.Rect(
-            0, 0, self.w, self.h
+            self.x, self.y, 45, 45 
         )  # Agrega un rectangulo para colisiones
-        self.rect.center = (65, 15)
+        self.rect.center = ((self.rect.width + 15 // 2, self.rect.height // 2))
 
     def draw(self, screen):
-        screen.blit(asteroid_image, (self.x, self.y))
-        pygame.draw.rect(screen, BLANCO, self.rect, 2)
-        self.rect.x = self.xv + self.x
-        self.rect.y += self.yv
+      screen.blit(self.image, (self.x, self.y))
+      #pygame.draw.rect(screen, BLANCO, self.rect, 2)
+      self.rect.x = self.xv + self.x
+      self.rect.y += self.yv
 
 
 class Player:  # Clase del jugador
@@ -57,7 +63,7 @@ class Player:  # Clase del jugador
         self.image = pygame.transform.scale(
             player_sprite, (80, 80)
         )  # Inicializa y reescala el sprite
-        self.height = 75
+        self.height = 55
         self.width = 40
         self.rect = pygame.Rect(
             0, 0, self.width, self.height
@@ -106,11 +112,11 @@ class Player:  # Clase del jugador
         self.vel_y += GRAVITY
         dy += self.vel_y
 
-        # delimitar el movimiento para evitar cruzar los margenes verticales
+        # delimitar el movimiento para evitar cruzar los margenes verticales // Pantalla de Perdiste
         if self.rect.bottom + dy > 900:
             pygame.quit()
             sys.exit()
-            # dy = 0      #TEST: para no caer en el vacio, se frena la velocidad de caída
+            #dy = 0      #TEST: para no caer en el vacio, se frena la velocidad de caída
 
         # delimitar el movimiento para evitar cruzar los margenes laterales
         if self.rect.left + dx < 0:
@@ -135,7 +141,7 @@ class Player:  # Clase del jugador
             pygame.transform.flip(self.image, self.flip, False),
             (self.rect.x - 20, self.rect.y - 5),
         )
-        pygame.draw.rect(screen, BLANCO, self.rect, 2)
+        #pygame.draw.rect(screen, BLANCO, self.rect, 2)
 
 
 def play():
@@ -177,19 +183,20 @@ def play():
             a.x += a.xv
             a.y += a.yv
 
-            if (player.rect.left >= a.x and player.rect.left <= a.x + a.w) or (
+            if (player.rect.left >= a.x and player.rect.left <= a.x + a.w) or (             #Deteccion de colisiones con asteroides
                 player.rect.right + player.width >= a.x
                 and player.rect.right + player.width <= a.x + a.w
             ):
+
                 if (player.rect.top >= a.y and player.rect.top <= a.y + a.h) or (
                     player.rect.bottom + player.height >= a.y
                     and player.rect.bottom + player.height <= a.y + a.h
                 ):
-                    pygame.quit()
+                    pygame.quit()                                                           #En caso de morir, correrá esta linea // Pantalla de Perdiste
 
-        pygame.draw.line(
-            screen, BLANCO, (0, 200), (600, 200)
-        )  # Linea que indica cuando debe empezar a mover la camara (Scroll) TEST
+        #pygame.draw.line(
+            #screen, BLANCO, (0, 200), (600, 200)
+        #)  # Linea que indica cuando debe empezar a mover la camara (Scroll) TEST
 
         if asteroidCount % 50 == 0:
             ran = random.choice([1, 1, 1, 2, 2, 3])
@@ -206,5 +213,4 @@ def play():
         score += 1
         scoreDisplay = font.render("Puntuación: " + str(score), True, (255, 255, 255))
         screen.blit(scoreDisplay, (10, 10))
-
         pygame.display.update()
