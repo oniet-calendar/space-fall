@@ -72,7 +72,7 @@ class Player:  # Clase del jugador
         jetpack_amount = 10
 
     def cool_down(self):
-        if self.cool_down_count >= 20:
+        if self.cool_down_count >= 10:
             self.cool_down_count == 0
         elif self.cool_down_count > 0:
             self.cool_down_count += 1
@@ -98,7 +98,7 @@ class Player:  # Clase del jugador
                         self.vel_y = -20
                         self.cool_down_count = 1
 
-                    if self.cool_down_count == 20:
+                    if self.cool_down_count == 10:
                         self.vel_y = -20
                         self.cool_down_count = 1
 
