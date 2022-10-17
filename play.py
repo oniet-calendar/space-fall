@@ -69,10 +69,10 @@ class Player:  # Clase del jugador
         self.vel_y = 0
         self.flip = False  # Inicia con la imagen flipped False
         self.cool_down_count = 0
-        jetpack_amount = 10
+        #jetpack_amount = 10
 
     def cool_down(self):
-        if self.cool_down_count >= 10:
+        if self.cool_down_count >= 10:                                  #Si se quiere modificar el tiempo de prevencion de spam, variar este y
             self.cool_down_count == 0
         elif self.cool_down_count > 0:
             self.cool_down_count += 1
@@ -98,7 +98,7 @@ class Player:  # Clase del jugador
                         self.vel_y = -20
                         self.cool_down_count = 1
 
-                    if self.cool_down_count == 10:
+                    if self.cool_down_count == 10:                                              #Si se quiere modificar el tiempo de prevencion de spam, variar este y
                         self.vel_y = -20
                         self.cool_down_count = 1
 
