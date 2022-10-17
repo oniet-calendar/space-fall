@@ -143,7 +143,7 @@ def play():
     play_music()
 
     # Font
-    font = pygame.font.Font("freesansbold.ttf", 28)
+    font = pygame.font.Font("./fonts/Jost-Medium.ttf", 28)
     score = 0
     scroll = 0
     bg_scroll = 0

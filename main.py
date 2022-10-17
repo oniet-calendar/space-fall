@@ -14,7 +14,7 @@ font = pygame.font.Font("freesansbold.ttf", 28)
 
 
 def getFont(fontSize):
-    return pygame.font.Font("freesansbold.ttf", fontSize)
+    return pygame.font.Font("./fonts/Jost-Medium.ttf", fontSize)
 
 
 # cargar imagenes
