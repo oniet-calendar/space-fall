@@ -52,7 +52,7 @@ class Asteroid(object):
         )  # Donde spawnean los asteroides, entre un valor random del ancho de la pantalla y posicion 0 arriba
         self.x, self.y = self.ranPoint
         self.xv = 0                 #Velocidad horizontal en 0 asi salen de arriba
-        self.yv = 1 * random.randint(0,3)             # Velocidad vertical
+        self.yv = 1 * random.randint(1,3)             # Velocidad vertical
         self.rect = pygame.Rect(
             self.x, self.y, 45, 45 
         )  # Agrega un rectangulo para colisiones
