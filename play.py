@@ -3,6 +3,7 @@ import pygame, sys, random
 from pygame import mixer
 from combo_sfx import combo_sfx
 from game_over_music import gameOverMusic
+from jump_sfx import jump_sfx
 from play_music import play_music
 
 BLANCO = (255, 255, 255)
@@ -107,6 +108,7 @@ class Player:  # Clase del jugador
 
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
+                jump_sfx()
                 if event.button == 1:
                     if self.cool_down_count == 0 or 3:
                         self.vel_y = -15
