@@ -56,7 +56,7 @@ class Asteroid(object):
         self.rect = pygame.Rect(
             self.x, self.y, 45, 45 
         )  # Agrega un rectangulo para colisiones
-        self.rect.center = ((self.rect.width + 15 // 2, self.rect.height // 2))
+        self.rect.center = ((self.rect.width // 2, self.rect.height // 2))
 
     def draw(self, screen):
       screen.blit(self.image, (self.x, self.y))
