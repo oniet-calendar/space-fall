@@ -21,6 +21,8 @@ player_sprite = pygame.image.load("img/Astronaut_Falling.png").convert_alpha()
 asteroid_image = pygame.image.load("img/asteroid.png").convert_alpha()
 asteroid_image2 = pygame.image.load("img/asteroid2.png").convert_alpha()
 asteroid_image3 = pygame.image.load("img/asteroid3.png").convert_alpha()
+game_over_bg = pygame.image.load("img/game_over_bg.png").convert_alpha()
+
 
 # Variables
 GRAVITY = 1  # Esta variable se encarga de modificar el valor de la gravedad
@@ -229,6 +231,7 @@ def play():
             else:
                 #play game over sound
                 screen.blit(bg_image, (0,0))
+                screen.blit(pygame.transform.scale(game_over_bg, (400, 400)), (105,230))
                 game_over_text = getFont(55).render("GAME OVER!", True, BLANCO)
                 score_text = font.render("Puntuacion: " + str(score), True, BLANCO)
                 instruction_text = font.render("ESPACIO para reinciar", True, BLANCO)
