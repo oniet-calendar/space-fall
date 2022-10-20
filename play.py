@@ -108,7 +108,7 @@ class Player:  # Clase del jugador
 
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
-                jump_sfx()
+                # jump_sfx()
                 if event.button == 1:
                     if self.cool_down_count == 0 or 3:
                         self.vel_y = -15
