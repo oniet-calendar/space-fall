@@ -1,6 +1,7 @@
 from time import sleep
 import pygame, sys, random
 from pygame import mixer
+from game_over_music import gameOverMusic
 from play_music import play_music
 
 BLANCO = (255, 255, 255)
@@ -153,6 +154,7 @@ def play():
     score = 0
     scroll = 0
     bg_scroll = 0
+    game_over_music = 0
     asteroids = []
     asteroidCount = 0
     running = True
@@ -217,8 +219,7 @@ def play():
                 scoreDisplay = font.render("Puntuación: " + str(score), True, (255, 255, 255))
                 screen.blit(scoreDisplay, (10, 10))
                 pygame.display.update()
-            else:                  
-                mixer.quit()
+            else:
                 #play game over sound
                 screen.blit(bg_image, (0,0))
                 game_over_text = getFont(55).render("GAME OVER!", True, BLANCO)
@@ -229,6 +230,8 @@ def play():
                 screen.blit(score_text, [300 - (score_text.get_width()/2), 400])
                 screen.blit(instruction_text, [300 - (instruction_text.get_width()/2), 450])
                 screen.blit(instruction_text2, [300 - (instruction_text2.get_width()/2), 500])
+                gameOverMusic(game_over_music)
+                game_over_music += 1
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         running = False
