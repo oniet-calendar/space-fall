@@ -1,6 +1,7 @@
 from time import sleep
 import pygame, sys, random
 from pygame import mixer
+from combo_sfx import combo_sfx
 from game_over_music import gameOverMusic
 from play_music import play_music
 
@@ -178,6 +179,10 @@ def play():
 
             player.draw()  # Imprimir sprites
             if player.game_over == False:
+
+                if not score % 500 and not score == 0:
+                    combo_sfx()
+
                 for a in asteroids:
                     a.draw(screen)
                     a.x += a.xv
