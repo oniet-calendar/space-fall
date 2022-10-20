@@ -13,7 +13,6 @@ screen = pygame.display.set_mode(size)
 # Font
 font = pygame.font.Font("freesansbold.ttf", 28)
 
-
 def getFont(fontSize):
     return pygame.font.Font("./fonts/Jost-Medium.ttf", fontSize)
 
@@ -38,7 +37,7 @@ def main_menu():
         MENU_RECT = MENU_TEXT.get_rect(center=(250, 140))
 
         PLAY_BUTTON = Button(
-            image=pygame.image.load("img/play.png"),
+            image=pygame.image.load("img/quit.png"),
             pos=(300, 350),
             text_input="Jugar",
             font=getFont(50),
