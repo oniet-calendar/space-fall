@@ -52,7 +52,7 @@ class Asteroid(object):
         )  # Donde spawnean los asteroides, entre un valor random del ancho de la pantalla y posicion 0 arriba
         self.x, self.y = self.ranPoint
         self.xv = 0                 #Velocidad horizontal en 0 asi salen de arriba
-        self.yv = 1 * 3             # Velocidad vertical
+        self.yv = 1 * random.randint(0,3)             # Velocidad vertical
         self.rect = pygame.Rect(
             self.x, self.y, 45, 45 
         )  # Agrega un rectangulo para colisiones
@@ -60,7 +60,7 @@ class Asteroid(object):
 
     def draw(self, screen):
       screen.blit(self.image, (self.x, self.y))
-      #pygame.draw.rect(screen, BLANCO, self.rect, 2)
+      pygame.draw.rect(screen, BLANCO, self.rect, 2)
       self.rect.x = self.xv + self.x
       self.rect.y += self.yv
 
@@ -142,12 +142,12 @@ class Player:  # Clase del jugador
 
     def draw(
         self,
-    ):  # Funcion dedicada a imprimir el sprite // Dependiendo su direccion, se flipea el sprite
+        ):  # Funcion dedicada a imprimir el sprite // Dependiendo su direccion, se flipea el sprite
         screen.blit(
             pygame.transform.flip(self.image, self.flip, False),
             (self.rect.x - 20, self.rect.y - 5),
         )
-        #pygame.draw.rect(screen, BLANCO, self.rect, 2)
+        pygame.draw.rect(screen, BLANCO, self.rect, 2)
 
 def getFont(fontSize):
     return pygame.font.Font("./fonts/Jost-Medium.ttf", fontSize)
