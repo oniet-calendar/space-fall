@@ -60,7 +60,7 @@ class Asteroid(object):
 
     def draw(self, screen):
       screen.blit(self.image, (self.x, self.y))
-      pygame.draw.rect(screen, BLANCO, self.rect, 2)
+      #pygame.draw.rect(screen, BLANCO, self.rect, 2)
       self.rect.x = self.xv + self.x
       self.rect.y += self.yv
 
@@ -147,7 +147,7 @@ class Player:  # Clase del jugador
             pygame.transform.flip(self.image, self.flip, False),
             (self.rect.x - 20, self.rect.y - 5),
         )
-        pygame.draw.rect(screen, BLANCO, self.rect, 2)
+        #pygame.draw.rect(screen, BLANCO, self.rect, 2)
 
 def getFont(fontSize):
     return pygame.font.Font("./fonts/Jost-Medium.ttf", fontSize)
